@@ -1,34 +1,19 @@
-function minWindowSubstring(s, t) {
+function getHint(secret, guess) {
+  let bulls = 0;
+  let cows = 0;
   const map = new Map();
-  for (const char of t) {
-    map.set(char, (map.get(char) || 0) + 1);
-  }
-  let required = map.size;
-  let left = 0;
-  let right = 0;
-  let minLen = Infinity;
-  let substrStart = 0;
-  while (right < s.length) {
-    const char = s[right];
-    if (map.has(char)) {
-      map.set(char, map.get(char) - 1);
-      if (map.get(char) === 0) required--;
+  for (let i = 0; i < secret.length; i++) {
+    if (secret[i] === guess[i]) {
+      bulls++;
+    } else {
+      map.set(secret[i], (map.get(secret[i]) || 0) + 1);
     }
-    while (required === 0) {
-      if (right - left + 1 < minLen) {
-        minLen = right - left + 1;
-        substrStart = left;
-      }
-      const leftChar = s[left];
-      if (map.has(leftChar)) {
-        map.set(leftChar, map.get(leftChar) + 1);
-        if (map.get(leftChar) > 0) required++;
-      }
-      left++;
-    }
-    right++;
   }
-  return minLen === Infinity
-    ? ""
-    : s.substring(substrStart, substrStart + minLen);
+  for (let i = 0; i < guess.length; i++) {
+    if (secret[i] !== guess[i] && map.has(guess[i]) && map.get(guess[i]) > 0) {
+      cows++;
+      map.set(guess[i], map.get(guess[i]) - 1);
+    }
+  }
+  return `${bulls}A${cows}B`;
 }
