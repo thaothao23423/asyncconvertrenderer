@@ -1,10 +1,13 @@
-function removeDuplicates(nums) {
-  let index = 0;
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] !== nums[index]) {
-      index++;
-      nums[index] = nums[i];
-    }
+const stoogeSort = (arr, i = 0, j = arr.length - 1) => {
+  if (arr[i] > arr[j]) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return index + 1;
-}
+  if (i + 1 >= j) {
+    return arr;
+  }
+  const t = Math.floor((j - i + 1) / 3);
+  stoogeSort(arr, i, j - t);
+  stoogeSort(arr, i + t, j);
+  stoogeSort(arr, i, j - t);
+  return arr;
+};
