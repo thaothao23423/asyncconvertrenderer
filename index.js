@@ -1,13 +1,13 @@
-const stoogeSort = (arr, i = 0, j = arr.length - 1) => {
-  if (arr[i] > arr[j]) {
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  if (i + 1 >= j) {
-    return arr;
-  }
-  const t = Math.floor((j - i + 1) / 3);
-  stoogeSort(arr, i, j - t);
-  stoogeSort(arr, i + t, j);
-  stoogeSort(arr, i, j - t);
+const bubbleSortOptimized = (arr) => {
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
+      }
+    }
+  } while (swapped);
   return arr;
 };
