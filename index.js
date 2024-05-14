@@ -1,13 +1,11 @@
-const bubbleSortOptimized = (arr) => {
-  let swapped;
-  do {
-    swapped = false;
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-        swapped = true;
-      }
-    }
-  } while (swapped);
-  return arr;
-};
+function isValidBST(root) {
+  return isValid(root, null, null);
+  function isValid(node, min, max) {
+    if (!node) return true;
+    if ((min !== null && node.val <= min) || (max !== null && node.val >= max))
+      return false;
+    return (
+      isValid(node.left, min, node.val) && isValid(node.right, node.val, max)
+    );
+  }
+}
