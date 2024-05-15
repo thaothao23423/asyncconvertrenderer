@@ -1,11 +1,11 @@
-function isValidBST(root) {
-  return isValid(root, null, null);
-  function isValid(node, min, max) {
-    if (!node) return true;
-    if ((min !== null && node.val <= min) || (max !== null && node.val >= max))
-      return false;
-    return (
-      isValid(node.left, min, node.val) && isValid(node.right, node.val, max)
-    );
+function findMaxConsecutiveOnes(nums) {
+  let maxCount = 0;
+  let count = 0;
+  for (const num of nums) {
+    if (num === 1) {
+      count++;
+      maxCount = Math.max(maxCount, count);
+    } else count = 0;
   }
+  return maxCount;
 }
